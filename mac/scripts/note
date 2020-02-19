@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+    if [[ -z $2 ]]; then
+        vim $1
+    elif [[ $2 == 'c' ]]; then
+        cat $1
+    else
+        echo $2 >> $1
+        terminal-notifier -contentImage "" -execute "open -a TextMate $1" -appIcon "$caw" -title "$2" -message "Logged to $1"
+    fi

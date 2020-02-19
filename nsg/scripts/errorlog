@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# pwd
+# strip 1st 9 chars (/var/www/)
+tail -f /var/log/web/$1/error_log

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+hour=$(echo "$1" | grep -o [0-9]*h)
+minute=$(echo "$1" | grep -o [0-9]*m)
+second=$(echo "$1" | grep -o [0-9]*s)
+
+hc=$(echo "$hour"   | grep -o [0-9]*)
+mc=$(echo "$minute" | grep -o [0-9]*)
+sc=$(echo "$second" | grep -o [0-9]*)
+
+duration=0
+s=""
+
+reset=$(tput sgr0)
+tan=$(tput setaf 3)
+green=$(tput setaf 2)
+success="${green}✔   |----> Okay, reminder coming in ${tan}\e[4m[== "
+
+if [ -z $hour ] && [ -z $minute ] &&  [ -z $second ]; then
+    duration=$(echo "$1" | grep -o [0-9]*)
+    if [[ duration -gt 1 ]]; then s="s"; else s=""; fi
+    success="$success$duration second$s "
+else
+    if [[ $hc -gt 0 ]]; then
+        duration=$(echo "$duration+($hc*3600)" | bc)
+        if [[ $hc -gt 1 ]]; then s="s"; else s=""; fi
+        success="$success$hc hour$s "
+    fi
+    if [[ $mc -gt 0 ]]; then
+        duration=$(echo "$duration+($mc*60)" | bc)
+        if [[ $mc -gt 1 ]]; then s="s"; else s=""; fi
+        success="$success$mc minute$s "
+    fi
+    if [[ $sc -gt 0 ]]; then
+        duration=$(echo "$duration+($sc*1)" | bc)
+        if [[ $sc -gt 1 ]]; then s="s"; else s=""; fi
+        success="$success$sc second$s "
+    fi
+fi
+
+success="$success==]${reset}"
+printf "$success\n"
+
+osascript -e "delay \"$duration\"" -e "display dialog \"$2\"" > /dev/null &

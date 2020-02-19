@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+a="setlocal buftype=nowrite bufhidden=hide noswapfile"
+# by default, make enter open the file path under the cursor in a new tab
+b="nnoremap <buffer> <cr> Vgf"
+
+grep -r -i -l --include=\*.$1 . -e "$2" | vim -c "$a" -c "$b" -

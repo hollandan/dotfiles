@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+commandlist=$(svn status | grep '^?' | sed -e 's/\?\ *//g' | sed -e '/^files/ d' | tr '\n' ' ')
+svnadd="svn add $commandlist"
+eval $svnadd

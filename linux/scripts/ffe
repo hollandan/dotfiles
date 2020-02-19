@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# ffe:      Find file whose name ends with a given string
+/usr/bin/find . -name '*'"$@"

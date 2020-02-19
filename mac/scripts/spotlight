@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+if [[ -z $1 ]]; then
+	echo "No query"
+	exit
+fi
+
+# Use spotlight to find a search query
+# Then, use fzf to navigate the results
+target=$(mdfind "$*" | grep -v \/Users\/dan\/Library\/ | grep -v \/System\/Library\/ | fzf -q "$*")
+if [ -z "$target" ]; then exit; fi
+
+# Find out if the chosen file is a directory
+kind=$(file "$target" | grep -o directory)
+if [[ $kind == "directory" ]]; then
+    dir=$target
+else
+    dir=$(dirname "${target}")
+fi
+
+# we'll save the directory to a text file so we can cd to it after the script terminates
+# if the text file is there now, it's referencing an old directory, so get rid of it
+if [ -f $HOME/.config/.sldir ]; then
+    /bin/rm -f $HOME/.config/.sldir
+fi
+
+# echo "c)d | d)ir copy | f)ilepath copy | o)pen | w)ith app, open | r)anger | v)im | y)ank to clipboard"
+printf "     (c)d            open (w)ith app
+copy (d)irectory          (r)anger
+copy (f)ilepath           (v)im
+     (o)pen               (y)ank to clipboard
+    ∞ "
+
+read response
+choice=${response:0:1}
+
+case $choice in
+    c )
+        echo "$dir" > $HOME/.config/.sldir
+        exit
+        ;;
+    d )
+        echo "$dir" | pbcopy
+        exit
+        ;;
+    f )
+        echo "$target" | pbcopy
+        exit
+        ;;
+    o )
+        open "$target"
+        exit
+        ;;
+    r )
+        ranger "$dir"
+        exit
+        ;;
+    w )
+        read application
+        app="$(ls /Applications/ | grep -i $application)"
+        open -a "$app" "$target"
+        exit
+        ;;
+    v )
+        vim "$target"
+        exit
+        ;;
+    y )
+        # get the line number to yank to clipboard
+        line=$(echo $response | sed 's/[^0-9]*//g')
+        if [ -n "$line" ]; then
+            sed -n "$line"p "$target" | pbcopy
+        else
+            cat "$target" | pbcopy
+        fi
+        exit
+        ;;
+    *)
+        # otherwise, guess
+        extension="${target##*.}"
+        #lowercase the extension
+        ext=$(echo "$extension" | tr '[:upper:]' '[:lower:]')
+        case "$ext" in
+            css|htm|html|js|log|lua|php|py|sql|txt)
+                # if text file - vim
+                vim "$target"
+                exit
+                ;;
+            app|csv|doc|docx|gif|jpg|jpeg|m4a|mov|mp3|mpg|pages|pdf|png|ppt|pptx|psd|rtf|tiff|xlsx)
+                # otherwise, open
+                open "$target"
+                exit
+                ;;
+            *)
+                # else, cd to directory
+                echo "$dir" > $HOME/.config/.sldir
+                exit
+        esac
+        exit;
+esac

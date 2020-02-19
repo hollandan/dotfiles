@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+open `brew info $1 | sed -n '/http/{p;q;}'`

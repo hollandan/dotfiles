@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# dir=$(pwd)
+# latest=$(ls -Rt | head -1)
+# echo -ne "\033]0;"$dir"\007"
+#
+# a=":cd $dir | :args **/* | :b $latest"
+#
+# vim -c "$a" \
+# && echo -ne "\033]0;""\007"
+
+dir=$(pwd)
+latest=$(ls -Rt | head -1)
+a=":cd $dir | :b $latest"
+
+find . -type f ! \( \
+-iname "*jpg" \
+-o -iname "*jpeg" \
+-o -iname "*png" \
+-o -iname "*pdf" \
+-o -iname "*mov" \
+-o -iname "*mp4" \
+-o -iname "*xls" \
+-o -iname "*xlsx" \
+-o -iname "*doc" \
+-o -iname "*docx" \
+-o -iname "*webloc" \
+-o -iname "*DS_STORE" \
+\) -exec vim -c "$a" {} +
+
+
+
+
+
+

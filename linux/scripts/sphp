@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+search="$*"
+query=$(php -r "echo urlencode('$search');exit;")
+echo -ne "\033]0;"php.net: $search"\007"
+
+w3m +154 "https://www.php.net/$query" && echo -ne "\033]0;""\007"

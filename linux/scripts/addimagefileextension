@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# depends on imagemagick
+# Used to give contentimages and contentblockphotos file extensions
+# so ImageOptim knows how to handle them
+# Could probably script the removal of the extension...
+# but it's easy enough with Ranger's bulkrename
+
+for i in *; do
+	ident=$(identify $i)
+	if echo "$ident" | grep -q "JPEG"; then
+		echo "$i.jpg";
+		mv "$i" "$i.jpg"
+	elif echo "$ident" | grep -q "PNG"; then
+		mv "$i" "$i.png"
+	fi
+done

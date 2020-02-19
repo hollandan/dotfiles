@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+    log=~/note/bookmarks.txt
+    note $log "$1"

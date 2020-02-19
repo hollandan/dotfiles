@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# https://www.reddit.com/r/vim/comments/53mhut/using_vim_like_awk/?st=itbl3hfz&sh=0728c53b
+# use vim ex commands in a UNIX pipe
+# example usage:
+# $ echo 'foo' | vp '%s/f/x/g'
+# xoo
+
+vp() {
+    vim - -u NONE -es '+1' "+$*" '+%print' '+:qa!' | tail -n +2
+}

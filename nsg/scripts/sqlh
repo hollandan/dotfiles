@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# in order to nab the user and pass, we have to know whether they are surrounded by
+# quotes or double quotes. We assume double quotes, but check just in case. If there
+# aren't any double quotes on the line, we assume single quotes instead.
+getDelimiter() {
+    ticks=0
+    delimiter="\""
+
+    # find out how many single quotes are on the line
+    ticks="${interest//[^\']}"
+    if [[ ${#ticks} -gt 0 ]]; then delimiter="'"; fi
+}
+
+if [ -f "init.php" ]; then
+    file="init.php"
+
+    interest=$(grep ${file} -e "DB::initialize")
+    getDelimiter
+
+    user=$(echo $interest | cut -d $delimiter -f 4)
+    dbpass=$(echo $interest | cut -d $delimiter -f 6)
+    pass="-p${dbpass}"
+
+elif [ -f "wp-config.php" ]; then
+    file="wp-config.php"
+
+    interest=$(grep ${file} -e "DB_USER")
+    getDelimiter
+    user=$(echo $interest | cut -d $delimiter -f 4)
+
+    interest=$(grep ${file} -e "DB_PASSWORD")
+    getDelimiter
+    dbpass=$(echo $interest | cut -d $delimiter -f 4)
+
+    pass="-p${dbpass}"
+fi
+
+# I have this in my .bashrc:
+# HISTCONTROL=ignoreboth
+# So, prepending a space to this command prevents it from being saved in command history
+mysql --sigint-ignore -u $user --database=$user $pass

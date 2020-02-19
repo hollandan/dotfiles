@@ -1,0 +1,5 @@
+if [ "$HOSTNAME" = "nsg9" ]; then
+    alias sql="mysql --sigint-ignore -u danholland -p"
+else
+    alias sql="mysql --sigint-ignore -u webdevuser -p"
+fi

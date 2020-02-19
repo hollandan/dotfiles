@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# This simple script opens the last modified file in vim
+# If a number is given as an argument, it opens the last n modified files in vim
+if [ "$#" -ne 1 ]; then
+    vi `ls -t | head -1`
+else
+    vi `ls -t | head -$1`
+fi
+

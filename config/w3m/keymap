@@ -1,0 +1,171 @@
+# A sample of ~/.w3m/keymap (default)
+#
+# Ctrl : C-, ^
+# Escape: ESC-, M-, ^[
+# Space : SPC, ' '
+# Tab : TAB, ^i, ^I Delete: DEL, ^?  Up : UP, ^[[A
+# Down : DOWN, ^[[B
+# Right : RIGHT, ^[[ /C
+# Left : LEFT, ^[[D
+
+keymap SPC-q QUIT
+
+keymap :: COMMAND
+
+keymap U GOTO
+keymap M-u GOTO_RELATIVE
+
+# Movement
+keymap gg BEGIN
+keymap G END
+keymap C-b PREV_PAGE
+keymap C-f NEXT_PAGE
+keymap h MOVE_LEFT
+
+keymap j MOVE_DOWN
+keymap k MOVE_UP
+keymap J UP
+keymap K DOWN
+
+# keymap r UP
+# keymap m DOWN
+
+keymap l MOVE_RIGHT
+keymap b PREV_WORD
+keymap w NEXT_WORD
+keymap $ LINE_END
+# keymap L LINE_END
+keymap 0 LINE_BEGIN
+keymap H LINE_BEGIN
+keymap Z CENTER_H
+keymap zz CENTER_V
+keymap TAB NEXT_LINK
+keymap C-u PREV_LINK
+keymap / ISEARCH
+keymap ? ISEARCH_BACK
+# this will wrap search -- not line wrap
+keymap C-w WRAP_TOGGLE
+# keymap L GOTO_LINE
+keymap C-r SEARCH_BACK
+keymap C-s SEARCH
+
+keymap C-l REDRAW
+keymap ! SHELL
+keymap C-z SUSPEND
+keymap R RELOAD
+
+# Tabs
+keymap C-t TAB_LINK
+keymap tt NEW_TAB
+keymap T TAB_MENU
+keymap th PREV_TAB
+keymap tl NEXT_TAB
+keymap tc CLOSE_TAB
+keymap C-q CLOSE_TAB
+
+# keymap s SELECT_MENU
+# like buffers
+
+keymap SPC-b SELECT_MENU
+keymap SPC-h HISTORY
+keymap SPC-i INFO
+keymap M-i LINE_INFO
+keymap M-b BOOKMARK
+
+keymap q PREV
+keymap p NEXT
+keymap D DOWNLOAD_LIST
+keymap M-L LIST
+keymap M-m MOVE_LIST_MENU
+
+# view source
+keymap v VIEW
+keymap e EDIT_SCREEN
+# Edit local file
+keymap E EDIT
+
+keymap O OPTIONS
+keymap M-o SET_OPTION
+
+keymap u PEEK_LINK
+keymap c PEEK
+keymap i PEEK_IMG
+
+keymap M EXTERN
+
+keymap M-h HELP
+
+keymap g8 GOTO https://google.com
+keymap ga GOTO http://admin.nsgroupllc.com/
+keymap gd GOTO https://duckduckgo.com
+keymap gh GOTO https://www.hammerspoon.org/docs/index.html
+keymap gm GOTO http://mail.nsgroupllc.com/
+
+# this works!
+# keymap ,lg GOTO https://google.com
+
+# keymap C-@ MARK
+# keymap C-j GOTO_LINK
+# keymap C-k COOKIE
+# keymap C-m GOTO_LINK
+# keymap C-n MOVE_DOWN
+# keymap C-p MOVE_UP
+# keymap \" REG_MARK
+# keymap # PIPE_SHELL
+# keymap ( UNDO
+# keymap ) REDO
+# keymap + NEXT_PAGE
+# keymap , LEFT
+# keymap - PREV_PAGE
+# keymap . RIGHT
+# keymap : MARK_URL
+# keymap ";" MARK_WORD
+# keymap < SHIFT_LEFT
+# keymap = INFO
+# keymap > SHIFT_RIGHT
+# keymap ? SEARCH_BACK
+# keymap @ READ_SHELL
+# keymap F FRAME
+# keymap I VIEW_IMAGE
+# keymap N SEARCH_PREV
+# keymap Q EXIT
+# keymap S SAVE_SCREEN
+# keymap V LOAD
+# keymap [ LINK_BEGIN
+# keymap ] LINK_END
+# keymap \^ LINE_BEGIN
+# keymap a SAVE_LINK
+# keymap m MOUSE_TOGGLE
+# keymap n SEARCH_NEXT
+# keymap r VERSION
+# keymap | PIPE_BUF
+# keymap M-TAB PREV_LINK
+# keymap M-C-j SAVE_LINK
+# keymap M-C-m SAVE_LINK
+# keymap M-: MARK_MID
+# keymap M-< BEGIN
+# keymap M-> END
+# keymap M-I SAVE_IMAGE
+# keymap M-M EXTERN_LINK
+# keymap M-W DICT_WORD_AT
+# keymap M-a ADD_BOOKMARK
+# keymap M-c COMMAND
+# keymap M-k DEFINE_KEY
+# keymap M-l LIST_MENU
+# keymap M-n NEXT_MARK
+# keymap M-p PREV_MARK
+# keymap M-s SAVE
+# keymap M-v PREV_PAGE
+# keymap M-w DICT_WORD
+# keymap UP MOVE_UP
+# keymap DOWN MOVE_DOWN
+# keymap RIGHT MOVE_RIGHT
+# keymap LEFT MOVE_LEFT
+# keymap M-[E MENU
+# keymap M-[L MENU
+# keymap M-[Z PREV_LINK
+# keymap M-[1~ BEGIN
+# keymap M-[2~ MENU
+# keymap M-[4~ END
+# keymap M-[5~ PREV_PAGE
+# keymap M-[6~ NEXT_PAGE

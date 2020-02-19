@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# enquote: surround lines with quotes (useful in pipes) - from mervTormel
+/usr/bin/sed 's/^/"/;s/$/"/'

@@ -1,0 +1,64 @@
+## Mac ##
+
+alias kmap="vim ~/.config/karabiner/karabiner.json"
+alias opne="open"
+alias clients="cd /Volumes/nsg/nsg/clients"
+
+alias ql="qlmanage -p 2>/dev/null"
+alias qlf='qlmanage -p "$@" > /dev/null'
+alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+
+alias oil="open -e `ls -t | head -1`"
+alias oo="o"
+
+alias vlc="/Applications/VLC.app/Contents/MacOS/VLC --intf ncurses"
+
+## Image Manip
+alias sipsw='sips --resampleWidth'
+alias sipsh='sips --resampleHeight'
+
+# alias f='mdfind'
+alias qfind="find . -name "                 # qfind:    Quickly search for file
+alias lr="ls -R | grep \":$\" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less"
+
+alias simulator="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
+
+alias brewup="brew update; brew upgrade; brew cleanup"
+
+alias edit="exec editinvim; exit"
+alias keylay="vim $HOME/Library/KeyBindings/DefaultKeyBinding.dict"
+
+alias kdefault="'/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --select-profile Default"
+alias knone="'/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --select-profile None"
+alias kunepic="'/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --select-profile Unepic"
+
+alias ituens="itunes"
+alias ocremix="osascript -e 'tell app \"iTunes\" to play playlist \"ocradio\"'"
+alias ocweb="open -a '/Applications/Google Chrome.app' https://rainwave.cc/ocremix/"
+alias playcover="osascript -e 'tell app \"iTunes\" to play track \"Cover Me: All covers, all the time. [SomaFM]\"'"
+alias playplay="osascript -e 'tell app \"iTunes\" to play playlist \"Play\"'"
+alias shuffle="osascript -e 'tell app \"iTunes\" to play playlist \"Library\"'"
+
+alias lastbindingofisaacseeds='cat "/Users/dan/Library/Application Support/Binding of Isaac Afterbirth/log.txt" | grep -i "RNG Start Seed" | awk -F " " "{print $4 " " $5}"'
+
+
+# FIND TEXT IN FILES
+#   http://stackoverflow.com/questions/16956810/finding-all-files-containing-a-text-string-on-linux
+# Do the following:
+#
+#        grep -winr 'directory' -e "pattern"
+#       ---- think winner....
+# -r is recursive, -n is line number and -w stands match the whole word. Along with these, --exclude or --include parameter could be used for efficient searching. Something like below:
+#
+#        grep --include=\*.{c,h} -rnw 'directory' -e "pattern"
+# This will only search through the files which have .c or .h extensions. Similarly a sample use of --exclude:
+#
+#        grep --exclude=*.o -rnw 'directory' -e "pattern"
+# Above will exclude searching all the files ending with .o extension. Just like exclude file it's possible to exclude/include directories through --exclude-dir and --include-dir parameter, the following shows how to integrate --exclude-dir:
+#
+#       grep --exclude-dir={dir1,dir2,*.dst} -rnw 'directory' -e "pattern"
+# This works for me very well, to achieve almost the same purpose like yours.
+
+alias beep='echo -en "\007"'
+
+alias iterm2py="'/Users/dan/Library/Application Support/iTerm2/iterm2env/versions/3.8.0/bin/python3' "

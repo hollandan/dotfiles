@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo -ne "\033]0;"hammerspoon"\007"
+# allfiles=$(find ~/.hammerspoon -type f -exec ls -t {} +)
+myfiles=$(find ~/.hammerspoon -type f -name '*.lua' -not -path "~/.hammerspoon/notused/" -exec ls -t {} + | grep -v notused)
+hamfiles=$(find /Applications/Hammerspoon.app/Contents/Resources/extensions/hs/ -type f -name '*.lua' -exec ls -t {} +)
+ca=":cd ~/.hammerspoon"
+
+vim $myfiles $hamfiles -c "$ca" && echo -ne "\033]0;""\007"

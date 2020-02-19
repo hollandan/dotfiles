@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+svn co svn+ssh://dan@nsg9.nsgroupllc.com/srv/svn/dev/$1

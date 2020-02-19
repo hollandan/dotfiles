@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+    log=~/note/gws.txt
+    note $log "$1"

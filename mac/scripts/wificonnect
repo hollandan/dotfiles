@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# A particular pain in the ass here is that you have to (manually?) give "security"
+# keychain access to retrieve the password without a prompt
+# Here's how:
+# 1) Open Keychain
+# 2) Find the Airport network password
+# 3) Double-click it
+# 4) Click Access Control
+# 5) Add /usr/bin/security to the list
+# 6) Save changes
+
+# Interesting article re the topic; plus advice to automate
+# https://superuser.com/questions/808027/os-x-shell-script-to-connect-to-a-known-wifi-ap-without-explicitly-using-a-passw
+
+if [[ -n "$1" ]]; then
+    network="$*"
+else
+    options=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s | fzf --preview=)
+
+    # grab the string up to the first :
+    choice=$(echo $options | sed "s/:.*/:/")
+    # remove the last 3 chars to get the network
+    network=${choice%????}
+fi
+
+password=$(security find-generic-password -wa "$network")
+echo "networksetup -setairportnetwork en0 $network (using_password_from_keychain)"
+networksetup -setairportnetwork en0 "$network" $password
+/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I

@@ -1,0 +1,1 @@
+alt-a:select-all,alt-enter:jump-accept,alt-j:jump,alt-n:deselect-all,ctrl-b:page-up,ctrl-f:page-down,ctrl-i:toggle-preview,ctrl-j:preview-page-down,ctrl-k:preview-page-up,ctrl-n:down,ctrl-o:forward-word,ctrl-p:up,ctrl-t:kill-line,ctrl-w:backward-kill-word,ctrl-s:toggle,ctrl-v:execute(vim - {}),ctrl-e:execute(vim -u ~/dotfiles/vim/.vimrc-min {})

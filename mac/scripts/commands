@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+    log=~/Dropbox/note/commands.txt
+    note $log "$1"

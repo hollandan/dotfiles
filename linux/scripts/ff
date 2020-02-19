@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# ff:       Find file under the current directory
+/usr/bin/find . -name "$@"

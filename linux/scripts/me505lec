@@ -1,0 +1,120 @@
+#!/bin/bash
+
+# Thigs to do:
+#  - Range Download
+#  - What to do in case of 2 lecture numbers, such as: 02.04
+
+lectures='https://www.youtube.com/playlist?list=PLJhG_d-Sp_JHKVRhfTgDqbic_4MHpltXZ'
+ytid='data-video-id="\([0-9a-zA-Z_-]*\)"'
+
+# itunesfolder=Music/iTunes/iTunes\ Media/Automatically\ Add\ to\ iTunes.localized/
+itunesfolder=Box\ Sync/2014\ Fall/mecheng505/
+
+rangedownload=0
+from=''
+to=''
+message=''
+
+yturl="https://www.youtube.com/watch?v="
+ytprefix='youtube-dl -f '
+ytmovie='18 '
+# ytipod='36 '
+ytaudio='140 '
+lectureid=''
+
+
+function showhelp {
+    echo "Download Lectures for ME 505."
+    echo "============================="
+    echo "Pulling from"
+    echo "    $lectures"
+    echo
+    exit
+}
+
+function downloadit {
+    echo "Downloading $1"
+    eval "$ytprefix $ytmovie $yturl$1"
+    # eval "$ytprefix $ytipod $yturl$1"
+}
+
+
+function findlecture {
+    echo "--> Downloading $var"
+    if [[ $1 =~ ^[0-9]?[0-9]\.[0-9][0-9]$ ]]; then
+        lectureid=$(curl -s ${lectures} | grep ${var} | grep -o ${ytid} | awk -F\" '{print $2}')
+        if [[ ${#lectureid} -ne 11 ]]; then
+            echo "----| Lecture $var not found, skipping..."
+        else
+            downloadit $lectureid
+        fi
+    else
+        echo "----| $var is not a lecture, skipping..."
+    fi
+}
+
+
+if [[ $# -eq 0 ]]; then
+    showhelp
+elif [[ $# -eq 1 ]]; then
+    if [ $1 == "--help" ] || [ $1 == "-help" ] || [ $1 == "help" ] ; then
+        showhelp
+    elif [[ $1 == "all" ]]; then
+        message='Downloading all lectures.'
+    elif [[ $1 == "source" ]]; then
+        echo $lectures
+    else
+        message="Downloading Lecture $1."
+    fi
+elif [[ $# -eq 3 ]]; then
+    if [ $2 == '-' ] || [ $2 == 'to' ]; then
+        from="$1"
+        to="$3"
+        rangedownload=1
+        message="You want lectures from $from to $to."
+    else
+        message="You want to download $1, $2 and $3"
+    fi
+fi
+
+
+pushd .
+cd "$HOME/$itunesfolder"
+
+echo $message
+if [[ $rangedownload -eq 1 ]]; then
+    echo "Initiate range download!"
+
+    i="$from"
+    while [[ true ]]; do
+        echo downloading "$i"
+        # if [[ $from ]]; then
+        #     #statements
+        # fi
+        let "$i=$i+0.01"
+        if [[ $from -le $to ]]; then
+            exit
+        fi
+    done
+
+    # for from in $to
+    # for (( i = 0; i < 10; i++ )); do
+    #     #statements
+    # done
+    # do
+    #     let
+    # done
+else
+    for var in "$@"
+    do
+        findlecture $var
+    done
+fi
+popd
+
+# curl -s "$lectures" | grep "$var" | grep -E -o 'data-video-id="([0-9a-zA-Z_]*)"' | awk -F\" '{print $2}'
+# curl -s "$lectures" | grep "$lec" | grep -E -o 'data-video-id="([0-9a-zA-Z_]*)"' | awk -F\" '{print $2}'
+
+
+
+# curl -s https://www.youtube.com/playlist?list=PLJhG_d-Sp_JHKVRhfTgDqbic_4MHpltXZ | grep "01.01" | grep -E -o 'data-video-id="([0-9a-zA-Z_]*)"' | awk -F\" '{print $2}'

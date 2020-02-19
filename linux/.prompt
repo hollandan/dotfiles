@@ -1,0 +1,5 @@
+PS1='\[\033[0;37m\]\u@\h:\[\033[01;36m\]\w
+\[\033[01;37m\]∞ '
+export CLICOLOR=1
+export LSCOLORS=gxcxfxdxbxegedabagacad
+# http://geoff.greer.fm/lscolors/ to set !!

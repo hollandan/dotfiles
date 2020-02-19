@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# locateql: search using Spotlight and show a "Quick Look" of matching files
+# locatemd "$@" | enquote | xargs qlmanage -p >& /dev/null &
+locatemd "$@" | xargs qlmanage -p >& /dev/null &

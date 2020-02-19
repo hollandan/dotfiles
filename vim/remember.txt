@@ -1,0 +1,214 @@
+:redir @a    redirect output of next command to register a
+:map         list mappings
+:redir END   end redirection
+
+
+If you want to insert text after or before a match, you can use \zs or \ze to mark the start or end of the match, respectively.
+	E.g., :%s/\n\zs/,/
+	You can even combine these for other effects. This will change every underscore inside a word to a hyphen:
+	:%s/\w\zs_\ze\w/-/g
+Use \0 or & to reuse the match
+
+:let
+	see all variables defined
+
+Windows!
+	<c-w>s      ; horizontal split current window
+	<c-w>v      ; vertical split current window
+	<c-w>n      ; new horizontal split
+	<c-w>w      ; go to next window
+	<c-w>p      ; go to previous window
+
+    8<c-w><c-n> ; Horizontal split, height 8
+    4<c-w><c-v> ; Vertical split, widh 4
+
+You can search in the list menus!!
+	so: 
+		:ls
+		/{buffer_you_want}
+
+Clear all buffers
+:%bd!
+
+Change cwd to current file directory
+cd %:p:h
+
+
+Quick and dirty way to Diff 2 lines
+	select lines
+	":sort u"
+	if only one line remains, both were equal
+	if both remain, there most be some difference
+	An undo recovers everything again.
+
+
+
+" Split Managment
+:topleft vnew   ||  :topleft new
+:botright vnew  ||  :botright new
+
+:above vnew     ||   :above new 
+:below vnew     ||   :below new
+
+
+Fold based on line numbers
+	:5,16fo
+
+From here to end of file, replace anything that's 2 or more spaces with one space
+	.,$s/ \{2,}/ /g
+
+
+Lists!
+	:lgrep
+		grep into list menu
+	:ilist /[pattern]
+	:dlist
+	:undolist
+	:changes
+		g;
+		g,
+	:jumps
+		<c-o> [<c-u>]
+		<c-i>
+	:marks
+	:browse old
+	:b[uffers]
+		[b   | unimpaired
+		]b   | unimpaired
+	:tabs
+	:args
+		[a   | unimpaired
+		]a   | unimpaired
+
+
+Jump to location of older changes
+	g;
+Jump to location of newer changes
+	g,
+
+
+
+To *not* ignore case in search, prepend \C
+	/\CALLCAPS
+
+http://stackoverflow.com/questions/5518999/how-to-diff-two-lines-in-an-open-file-in-vim
+Diff 2 lines:
+select lines
+":sort u"
+	if only one line remains, both were equal
+	if both remain, there most be some difference
+	An undo recovers everything again.
+
+
+
+Need to maximize a pane?
+    :tabe %
+Open the pane in a new tab! That way, the other panes will stay preserved
+
+
+make an edit to a line
+    ex
+        A,<esc>
+Then, select a range
+    ex
+        vi[
+Now, you can repreat that command on every line in the selection with
+    :normal .
+
+
+
+:2,6 norm $C !important;     ||    vi{ :norm $C !important;
+=====================================================
+1 #foottop #social {          =>     1 #foottop #social {
+2     margin-right: 10px;     =>     2     margin-right: 10px !important;
+3     width: 294px;           =>     3     width: 294px !important;
+4     position: absolute;     =>     4     position: absolute !important;
+4     top: 5px;               =>     4     top: 5px !important;
+5     right: -3px;            =>     5     right: -3px !important;
+6     z-index: 100;           =>     6     z-index: 100 !important;
+7 }                           =>     7 }
+
+
+
+:vnew | r!php #
+:new | r!php #
+      Load php script output in new buffer!!
+:%d | r!php #
+    Clear current buffer, then load php script contents into it
+
+
+:he [   --- very useful!
+[[
+[m | [M  jumps to curly brackets in file
+
+Fun with g
+
+:g/href/norm ^f dt f>P            for every line contains href do ^f dt f>P in normal mode.
+                                        :g/{pattern}/norm {keystrokes}
+:g/pattern/norm @q                run macro on lines matching pattern
+:g/^$/d                           delete empty lines
+:g/{pattern}/d                    delete lines matching {pattern}.
+:g!/{pattern}/d or v/{pattern}/d  delete lines NOT matching {pattern} (like grep -v)
+:g/{pattern}/#                    display line numbers of lines matching {pattern} (using just g/{pattern}/ will also work if you have 'number' set).
+:g//d or :v//d                    If you omit the {pattern}Z>, it uses your previous search.
+:g/^ *class / .,+3 print          will list every line that starts with "class" and the following 3 lines. Or
+:g/# DEBUG:/ +1 delete            searches for lines with a "# DEBUG:" comment and delete the following line.
+:g/pattern/yank A                 yank matches into register a
+
+
+You can also define ranges with searches and marks:
+:,/)/-norm wct,(<C-v><C-r><C-v><C-o>")
+
+
+Consider using iab on a per document basis! Ex:
+    :iab tc Terms & Conditions
+Could be useful for taking notes on Tai Chi, for example
+
+
+If you want your cursor to stay in the middle of the screen when browsing long files, you can set scroll on with
+    set so=999
+However! This breaks gH and gL
+    doing so will put you in the middle of the screen instead of the top and bottom, unless you're at the top or bottom of the file
+
+
+
+:help undo-branches
+These go to newer and oldeer undo branches
+	g+
+	g-
+
+:earlier 10m    go back 10 minutes!!
+	{N}f  -> file -- as in, when the file was written
+	{N}s  -> that many of seconds
+	{N}m  -> that many of minutes
+	{N}h  -> that many of hours
+	{N}d  -> that many of days
+
+
+[I  | I]    list lines with word under cursor
+gi      Go to last insert
+gf      Go to file!  ie, vim file under cursor
+
+
+:marks
+Capital Marks *always* go to a file
+    ]'  jump to next line with a lowercase mark
+    ['  jump to previous line with a lowercase mark
+    ]`  jump to next lowercase mark
+    [`  jump to previous lowercase mark
+
+    `.  jump to position where last change occurred in current buffer
+    `"  jump to position where last exited current buffer
+    `0  jump to position in last file edited (when exited Vim)
+    `1  like `0 but the previous file (also `2 etc)
+    ''  jump back (to line in current buffer where jumped from)
+    ``  jump back (to position in current buffer where jumped from)
+    `[ or `]    jump to beginning/end of previously changed or yanked text
+    `< or `>    jump to beginning/end of last visual selection
+
+Use marks to copy/paste/delete!
+	Type mk (Mark point with alphabet ‘k’ or use any other alphabet)
+	Move down (page down or whatever) and move to the end line
+	y'k will yank/copy all the lines from start to end
+	d'k will cut/delete all the lines from start to end
+

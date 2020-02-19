@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+osascript <<EOD
+tell application "iTunes" to play playlist "Mountain Chill"
+tell application "iTunes" to activate
+
+tell application "System Events"
+	tell process "iTunes"
+		tell menu bar 1
+			tell menu bar item "Window"
+				tell menu "Window"
+					try
+						click menu item "Switch to MiniPlayer"
+					on error errMsg
+					end try
+				end tell
+			end tell
+		end tell
+	end tell
+end tell
+
+tell application "System Events"
+    key code 48 using {command down} -- command-tab
+end
+EOD

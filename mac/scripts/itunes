@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+    track=$( /usr/bin/osascript <<"    EOT"
+        tell application "iTunes"
+            current stream title
+        end tell
+    EOT
+    );
+    if [[ $track != "missing value" ]]; then
+        artist=$(echo "$track" | grep -o '^[.*a-zA-Z0-9 ]*[^- ]');
+        song=$(echo "$track" | grep  -o '\-.*' | sed -E 's/^.{2}//');
+    else
+        song=$( /usr/bin/osascript <<"        EOT"
+            tell application "iTunes"
+                name of current track
+            end tell
+        EOT
+        );
+        artist=$( /usr/bin/osascript <<"        EOT"
+            tell application "iTunes"
+                artist of current track
+            end tell
+        EOT
+        )
+        track="$artist - $song"
+    fi
+
+    if [[ $1 == 'track' ]]; then
+            echo $track;
+    elif [[ $1 == 'song' ]]; then
+        echo $song;
+    elif [[ $1 == 'artist' ]]; then
+        echo $artist;
+    elif [[ $1 == 'google' ]] || [[ $1 == 'g' ]]; then
+        open -a Safari "http://www.google.com/search?q=${track}";
+    elif [[ $1 == 'log' ]] || [[ $1 == 'l' ]]; then
+        echo $track >> ~/Dropbox/note/songs.txt
+        terminal-notifier -appIcon "$caw" -message "$track" -title "Logged to Song List"
+    elif [[ $1 == 'songs' ]] || [[ $1 == 's' ]]; then
+        cat ~/Dropbox/note/songs.txt
+    elif [[ $1 == 'shuffle' ]]; then
+osascript <<EOD
+tell application "iTunes" to play playlist "Library"
+tell application "iTunes" to activate
+
+tell application "System Events"
+    tell process "iTunes"
+        tell menu bar 1
+            tell menu bar item "Window"
+                tell menu "Window"
+                    try
+                        click menu item "Switch to MiniPlayer"
+                    on error errMsg
+                    end try
+                end tell
+            end tell
+        end tell
+    end tell
+end tell
+
+tell application "System Events"
+    key code 48 using {command down} -- command-tab
+end
+EOD
+    else 
+        echo $track
+    fi

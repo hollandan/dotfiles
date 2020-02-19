@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [[ $1 == *".bak" ]]; then
+	#strip the last 4 chars of the string -- aka, ".bak"
+	filename=${1:0:${#1}-4}
+	mv -i $1 $filename
+else
+	mv -i $1.bak $1
+fi
+

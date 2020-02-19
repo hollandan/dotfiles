@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+dir=$(pwd)
+latest=$(ls -Rt *.php | head -1)
+echo -ne "\033]0;"$dir"\007"
+
+a=":cd $dir | :args **/*.php* | :b $latest"
+
+vim -c "$a" \
+&& echo -ne "\033]0;""\007"

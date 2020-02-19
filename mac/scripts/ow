@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# app="$(ls /Applications/ | grep -i $1)"
+# open -a "$app" "$2"
+
+# first argument is app
+if [ -z $1 ]; then
+	app="$(ls /Applications/ | fzf)"
+else
+	app="$(ls /Applications/ | grep -i $1 | head -1)"
+fi
+
+if [ -z $app ]; then
+	exit
+fi
+
+# second argument is file
+if [ -z $2 ]; then
+	file="$(ls -a | fzf --preview='head {}')"
+else
+	file="$2"
+fi
+
+if [ -z $file ]; then
+	exit
+fi
+
+open -a "$app" "$file"
+

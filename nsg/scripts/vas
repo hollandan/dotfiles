@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+arglist="css/styles.css"
+
+if [ -e css/biggest.css ]; then arglist="$arglist css/biggest.css"; fi
+if [ -e css/mobile.css ]; then arglist="$arglist css/mobile.css"; fi
+if [ -e css/cssmenu.css ]; then arglist="$arglist css/cssmenu.css"; fi
+
+vim -O $arglist

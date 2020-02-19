@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# https://www.reddit.com/r/vim/comments/53mhut/using_vim_like_awk/?st=itbl3hfz&sh=0728c53b
+# example usage:
+# $ echo 'foo' | vn 'rx'
+# xoo
+# use vim normal mode commands in a UNIX pipe
+
+vn() {
+    vim - -u NONE -es '+1' "+normal $*" '+%print' '+:qa!' | tail -n +2
+}

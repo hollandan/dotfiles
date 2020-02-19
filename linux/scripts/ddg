@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+search="$*"
+query=$(php -r "echo urlencode('$search');exit;")
+w3m "https://duckduckgo.com/?q=$query"

@@ -1,0 +1,99 @@
+colors slate
+se nocp hid ru sc wmnu ai ci is wic lz cul noet
+se sm mat=3 bs=2 mouse=a ignorecase
+se wildmode=longest,list
+se whichwrap=<,>,h,l,[,],b,s
+se complete=.,w,b,u,t,i,kspell
+se completeopt=longest,menuone,preview
+se list listchars=tab:\|\ⵧ,trail:·,extends:❯,precedes:❮
+se path=.,**
+autocmd FileType netrw setl bufhidden=wipe
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let mapleader="\<space>"
+map <space> <leader>
+filetype indent on
+syntax enable
+nn : ;
+nn ; :
+vn : ;
+vn ; :
+fun! FirstCharOrFirstCol()
+    let current_col = virtcol('.')
+    normal ^
+    let first_char = virtcol('.')
+    if current_col == first_char
+        normal 0
+    endif
+endfun
+nn <silent> H :call FirstCharOrFirstCol()<cr>
+nn L $
+vn L $
+vn H ^
+nn Y y$
+nn dh d0
+nn dl d$
+nn ' `
+nn ` '
+nn <Leader>q :q<cr>
+nn <Leader>w :w<cr>
+nn <Leader>` :q!<cr>
+vn ,e :norm! 
+nn ,ep vip \| :silent! 
+nn ,es vis \| :silent! 
+nn ,e" vi" \| :silent! 
+nn ,ip vipvI
+nn ,ap vip \| :norm! A
+nn tl :tabnext<CR>
+nn th :tabprev<CR>
+nn tt :tabedit<Space>
+nn <c-p> :<up>
+vn <c-p> :<up>
+nn ,ff :find 
+nn ,ft :tabnew \| :find 
+nn ,fs :sp\| :find 
+nn ,fv :vsp\| :find 
+nn <leader>fc :set ft=css<cr>
+nn <leader>fh :set ft=html<cr>
+nn <leader>fj :set ft=javascript<cr>
+nn <leader>fp :set ft=php<cr>
+nn <leader>ft :set ft=txt<cr>
+nn <leader>fi :set fm=indent<cr>
+nn <leader>fs :set fm=syntax<cr>
+nn <up> <c-w>-
+nn <down> <c-w>+
+nn <left> <c-w><
+nn <right> <c-w>>
+nn <s-up> 10<c-w>-
+nn <s-down> 10<c-w>+
+nn <s-left> 10<c-w><
+nn <s-right> 10<c-w>>
+nn <c-j> <c-w>j
+nn <c-k> <c-w>k
+nn <c-h> <c-w>h
+nn <c-l> <c-w>l
+nn <c-up> <c-w>K
+nn <c-down> <c-w>J
+nn <c-left> <c-w>H
+nn <c-right> <c-w>L
+nn <c-w><c-h> <c-w>H :vertical res 40<cr>
+nn <c-w><c-l> <c-w>L :vertical res 40<cr>
+nn <c-w><c-m> <c-w>J :res 10<cr>
+nn <c-w><c-u> <c-w>K :res 10<cr>
+nn <c-w><c->= <c-w>=
+nn ,lL :Vex ../<cr>
+nn ,ll :Vex ./<cr>
+cm cd. cd %:p:h<cr>
+nn ,zz :so ~/.vimrc<cr>
+nn [e :m-2
+nn ]e :m+1
+nn ]b :bn<cr>
+nn [b :bp<cr>
+nn <Leader>x :% !tidy -q -i -wrap 240 -asxhtml --show-errors 0
+if toupper(substitute(system('uname'), '\n', '', '')) =~ 'DARWIN'
+    "copy visual seletion to mac clipboard
+    vnoremap <silent> <leader>y :<CR>:let @a=@" \| execute "normal! vgvy" \| let res=system("pbcopy", @") \| let @"=@a<CR>
+    nnoremap <silent> <leader>y :<CR>:let @a=@" \| execute "normal! yy" \| let res=system("pbcopy", @") \| let @"=@a<CR>
+    nnoremap <silent> <leader>Y mz:%!pbcopy<cr>u`z
+endif

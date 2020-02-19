@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+cd ~/Dropbox/_hours/nsg-worklog/
+day=$(date "+%Y-%m-%d")
+filename="$day.txt"
+
+#get the number of lines in todo-nsg.txt
+# if the number's odd, add one to make it even
+# then, divide by two
+# numberoflines=$(wc -l todo-nsg.txt | grep -o -E '[0-9]+')
+# if [[ $(($numberoflines % 2)) -ne 0 ]];
+#     then let size=$(($numberoflines+1))
+#     else let size=$numberoflines
+# fi
+# size=$(($size/2))
+
+cone=":nnoremap <buffer> <Leader>cc :call NewWorklogEntry()<cr> | :nnoremap <buffer> <Leader>cl :call LogTimeInNSGDatabase()<cr> | :colorscheme badwolf | :set nonumber | :set spell | :set wrap"
+ctwo="normal L"
+cthree="vsp google-search-console.txt | vertical resize40 | :set nonumber | :setlocal nowrap | normal h"
+cfour="normal h"
+cfive=":setlocal nonumber | :setlocal nowrap | normal l"
+csix="normal ="
+cseven="autocmd VimResized * :normal! =="
+
+echo -ne "\033]0;"worklog"\007"
+
+if [[ -f $filename ]]; then
+    vim -o $filename todo-nsg.txt \
+    -c "$cone" \
+    -c "$ctwo" \
+    -c "$cthree" \
+    -c "$cfour" \
+    -c "$cfive" \
+    -c "$csix" \
+    -c "$cseven" \
+	&& echo -ne "\033]0;""\007"
+else
+    # same as above, but insert a datestamp and go from there
+    ione="normal 17i="
+    itwo="normal yyp"
+    starttime=$(date "+%Y-%m-%d %H:%M")
+    ithree="normal OggO$starttimejj0"
+    vim -o $filename todo-nsg.txt \
+    -c "$cone" \
+    -c "$ctwo" \
+    -c "$ione" \
+    -c "$itwo" \
+    -c "$ithree" \
+    -c "$cthree" \
+    -c "$cfour" \
+    -c "$cfive" \
+    -c "$csix" \
+    -c "$cseven" \
+	&& echo -ne "\033]0;""\007"
+fi
+# | normal ggO✓ Clocked In | normal jyyjjp
+

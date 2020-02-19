@@ -1,0 +1,33 @@
+/*wikipedia better viewing*/
+#mw-page-base, #mw-head-base, #mw-navigation, #siteNotice, #centralNotice {display: none !important;}
+#content.mw-body { margin-left: 0 !important;}
+div#toc.toc {
+    float: left !important;
+    margin: 5px 40px 5px 0 !important;
+    display: block;
+}
+
+
+
+/* Reddit */
+/* .comments-page .md, */
+/* .comments-page #onboarding-splash, */
+/* .single-page .md, */
+/* .single-page #onboarding-splash, */
+/* .listing-page .md, */
+/* .listing-page #onboarding-splash , */
+.comments-page .side,
+.single-page .side,
+.listing-page .side {
+    display: none !important;
+}
+body.listing-page {
+    overflow: scroll !important;
+}
+
+@media all and (min-width: 641px) {
+
+    /* .side { */
+    /*     display: none; */
+    /* } */
+}

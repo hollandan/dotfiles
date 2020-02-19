@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+cd ~/.editinvim
+echo -ne "\033]0;"editinvim"\007"
+ca=":cd /Users/dan/.editinvim | :set noswapfile | :set filetype=editinvim"
+
+allfiles=$(find ~/.editinvim -type f -exec ls -t {} + )
+vim $allfiles -c "$ca"

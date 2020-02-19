@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+vim -o modules/$1.php -c "resize10" templates/$1.php

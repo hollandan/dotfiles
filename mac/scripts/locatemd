@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# locatemd: to search for a file using Spotlight's metadata
+mdfind "kMDItemDisplayName == '$@'wc"

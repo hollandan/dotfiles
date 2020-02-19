@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+curl http://textbelt.com/text -d number="$1" -d "message=$2 || Reply to: Dan Holland, 517-449-9744"

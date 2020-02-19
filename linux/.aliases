@@ -1,0 +1,57 @@
+alias reload="exec $SHELL -l"
+alias exti="exit"
+alias xit="exit"
+alias exitexit="exit"
+
+alias ll="ls -AFklhp"
+alias l="ls -AFklhp"
+
+alias cp="cp -i"
+alias mv="mv -i"
+alias rm="rm -i"
+alias h="history"
+alias c="cat"
+alias v="vim"
+alias m="vim -u ~/dotfiles/vim/.vimrc-min"
+alias tt="vim"
+# open the last shell output in vim quickfix; really useful with grep
+alias vls="vim -q < !!"
+alias val="vall"
+
+# alias f="fzf -m > ~/Dropbox/dotfiles/config/fzf/.last-f-selection"
+
+alias grep='grep --color=auto'
+alias g='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias ginr='grep -inr . -e'
+alias grin='grep -inr . -e'
+alias girn='grep -inr . -e'
+alias gnir='grep -inr . -e'
+alias gnri='grep -inr . -e'
+
+alias phpgrep="grep -irn */*.php -e "
+alias grepphp="grep -irn */*.php -e "
+alias cssgrep="grep -irn */*.css -e "
+alias grepcss="grep -irn */*.css -e "
+alias txtgrep="grep -irn */*.txt -e "
+alias greptxt="grep -irn */*.txt -e "
+alias allgrep="grep -irn . -e "
+alias grepall="grep -irn . -e "
+
+alias cd..="cd .."
+alias cdd="cd -"
+alias .2='cd ../..'
+alias .3='cd ../../..'
+
+### viewing
+alias pretty="column -s, -t | less -#5 -S" 
+
+### network
+alias pgoog='ping 8.8.8.8'
+
+alias mkae="make"
+alias mr="make run"
+alias mrmr="make run"
+
+alias 23m="w3m"

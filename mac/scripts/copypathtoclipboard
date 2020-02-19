@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+file=$(echo "$1" | sed 's/ /\\ /g')
+echo "$PWD/$file" | tr -d '\n' | pbcopy
+echo "$PWD/$file"
